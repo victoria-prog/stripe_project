@@ -1,3 +1,7 @@
 # Dev/stripe_project/.gitignore
 .vscode/
 .env
+/static
+/media
+/venv
+__pycache__
