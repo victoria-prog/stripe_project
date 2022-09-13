@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% block title %}{% endblock %}
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{% static 'css/index.js' %}" defer></script>
+  </head>
+  <body>
+    {% block content %}{% endblock %}
+  </body>
+</html>

@@ -1,0 +1,28 @@
+{% extends "stripe_app/base.html" %}
+{% block content %}
+<title>Buy {{ item.name }}</title>
+<div class="sr-root"> 
+    <div class="sr-main">
+        <section class="container">
+            <div>
+            <h3>{{ item.name }}</h3>
+            <h4>{{ item.description }}</h4>
+            <div class="pasha-image">
+                <img src="{{ item.image.url }}" width="100" height="120"/>   
+            </div>
+            <p class="price">{{ item.get_price|stringformat:"i"|slice:":-2" }} {{item.currency}} </p>
+            <button type="submit" id="submit">Buy</button>
+            <script type="text/javascript">
+                var stripe = Stripe('pk_test_51Lh98TBvz08RMhjWJE9XHg0jrovs5LXSA7QHlM2KewhRQJNRbLOv6A3Hk7Gs2oG4sGIXOQTT8z6AaZSY5NmkJ3Es00ezInPBfG');
+                var buyButton = document.getElementById("submit");
+                buyButton.addEventListener('click', () => {
+                    fetch("{% url 'stripe_app:buy' item.pk %}", {method: 'GET'})
+                    .then(response => response.json())
+                    .then(session => stripe.redirectToCheckout({ sessionId: session.id }))
+                }
+                );
+            </script>
+        </section>
+    </div>
+</div>   
+{% endblock %}
