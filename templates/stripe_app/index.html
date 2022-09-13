@@ -1,0 +1,32 @@
+{% extends "stripe_app/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>Online Shopping</h1>
+    <form method="post" action="" enctype="multipart/form-data">
+      {% csrf_token %}
+    <div class="currency">
+    <label class="rad-label">
+      <div class="rad-text">{{ form.currency|as_crispy_field }}</div>
+      <button class="button-three">Apply</button>
+    </label>
+    </div>
+    </form>
+    <div class="sr-root"> 
+        {% for item in items %}
+      <div class="sr-main">
+        <section class="container">
+          <div>
+            <h3>{{ item.name }}</h3>
+            <h4>{{ item.description|truncatechars:65 }}</h4>
+            <div class="pasha-image">
+                <img src="{{ item.image.url }}" width="100" height="120"/>   
+            </div>
+          </div>
+            <p class="price">{{ item.get_price|stringformat:"i"|slice:":-2" }} {{ item.currency }}</p>
+            <button type="submit" id="submit"><a href="{% url 'stripe_app:get_item' item.pk %}">Details</a></button>
+        </section>
+        <div id="error-message"></div>
+      </div>
+      {% endfor %}
+    </div>
+{% endblock %}
