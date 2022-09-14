@@ -13,6 +13,7 @@ from cart.cart import Cart
 
 load_dotenv()
 
+REMOTE_DOMAIN = 'http://34.159.119.247'
 
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 
@@ -87,8 +88,8 @@ def create_checkout_session(request):
         session = stripe.checkout.Session.create(
             line_items=get_items(items),
             mode='payment',
-            success_url='http://localhost:8000/success/',
-            cancel_url='http://localhost:8000/canceled/',
+            success_url=REMOTE_DOMAIN + '/success/',
+            cancel_url=REMOTE_DOMAIN + '/canceled/',
         )
         return redirect(session.url, code=303)
     message = 'You should add at least one item to your busket.'
@@ -110,7 +111,7 @@ def get_items(items):
                 'currency': item.currency,
                 'product_data': {
                     'name': item.name,
-                    'images': ['item.image']
+                    'images': [REMOTE_DOMAIN + item.image.url]
                 },
                 'unit_amount': item.get_price(),
                 },
