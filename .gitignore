@@ -1,8 +1,6 @@
 # Dev/stripe_project/.gitignore
 .vscode/
 .env
-/static
-/media
 /venv
 stripe_projects/__pycache__
 __pycache__
